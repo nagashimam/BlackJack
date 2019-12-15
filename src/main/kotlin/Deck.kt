@@ -31,7 +31,9 @@ enum class Number(val score: Int) {
  * SuitとNumberを保持するクラス
  */
 class Card(val suit: Suit, val number: Number) {
-    override fun toString(): String = "${suit}の${number}"
+    private fun anyToLowerCase(any : Any) = any.toString().toLowerCase()
+    override fun toString() =
+        "src/main/resources/img/${anyToLowerCase(suit)}/${anyToLowerCase(number)}.png.webp"
 }
 
 /**
