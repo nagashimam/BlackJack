@@ -4,6 +4,7 @@ import js.externals.jquery.jQuery
 private const val draw = "#more"
 private const val stop = "#stop"
 private const val click = "click"
+private const val disabled = "disabled"
 
 class View(private val presenter: Contract.Presenter) : Contract.View {
 
@@ -17,11 +18,16 @@ class View(private val presenter: Contract.Presenter) : Contract.View {
     }
 
     override fun enableInput() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        setButtonAvailability(false)
     }
 
     override fun disableInput() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        setButtonAvailability(true)
+    }
+
+    private fun setButtonAvailability(isDisabled: Boolean) {
+        jQuery(draw).attr(disabled, isDisabled.toString())
+        jQuery(stop).attr(disabled, isDisabled.toString())
     }
 
     override fun updateHumanScore(score: Int) {
