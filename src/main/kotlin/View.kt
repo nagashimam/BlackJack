@@ -1,4 +1,21 @@
+import js.externals.jquery.JQueryEventObject
+import js.externals.jquery.jQuery
+
+private const val draw = "#more"
+private const val stop = "#stop"
+private const val click = "click"
+
 class View(private val presenter: Contract.Presenter) : Contract.View {
+
+    init {
+        setOnClick(draw) { _, _ -> presenter.drawMore() }
+        setOnClick(stop) { _, _ -> presenter.stopDrawing() }
+    }
+
+    private fun setOnClick(selector: String, function: (JQueryEventObject, Any) -> Any) {
+        jQuery(selector).on(click, function)
+    }
+
     override fun enableInput() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
