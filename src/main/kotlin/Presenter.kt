@@ -12,6 +12,7 @@ class Presenter() : Contract.Presenter, Contract.InteractorOutput {
             drawComputerCard()
             drawComputerCard()
         }
+        view.enableInput()
     }
 
     override fun drawMore() {
@@ -21,7 +22,12 @@ class Presenter() : Contract.Presenter, Contract.InteractorOutput {
 
     override fun stopDrawing() {
         view.disableInput()
+        interactor.flipSecondComputerCard()
         interactor.drawComputerCard()
+    }
+
+    override fun flipSecondComputerCard(path: String) {
+        view.flipSecondComputerCard(path)
     }
 
     override fun sendFinalResult(humanScore: Int, computerScore: Int, isComputerBurst: Boolean) {

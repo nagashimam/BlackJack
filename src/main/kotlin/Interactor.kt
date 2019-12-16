@@ -3,6 +3,10 @@ class Interactor(private val presenter: Contract.InteractorOutput) : Contract.In
     private val deck = Deck()
     private val computer = Computer()
 
+    override fun flipSecondComputerCard() {
+        presenter.flipSecondComputerCard(computer.flipSecondCard())
+    }
+
     // 手札を引く
     override fun drawHumanCard() {
         if (human.hasBurst()) return
