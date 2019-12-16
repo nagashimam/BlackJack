@@ -5,8 +5,8 @@ class Interactor(private val presenter: Contract.InteractorOutput) : Contract.In
 
     // 手札を引く
     override fun drawHumanCard() {
-        if (human.isOver()) return
-        human.draw(deck).let { card -> presenter.updateHumanStatus(human.calculateScore(), card, human.isOver()) }
+        if (human.hasBurst()) return
+        human.draw(deck).let { card -> presenter.updateHumanStatus(human.calculateScore(), card, human.hasBurst()) }
     }
 
 
