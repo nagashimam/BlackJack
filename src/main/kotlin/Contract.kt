@@ -3,11 +3,11 @@ interface Contract {
     interface View {
         fun enableInput()
         fun disableInput()
-        fun updateHumanScore(score: Int)
-        fun showHumanHand(path: String)
-        fun showComputerHand(path: String)
-        fun showAlert(msg: String)
-        fun showWinningPercentage()
+        fun updateHumanScore(humanScore: Int)
+        fun placeHumanHand(imagePath: String)
+        fun placeComputerHand(imagePath: String)
+        fun showMessage(msg: String)
+        fun showWinningPercentage(winningPercentage: String)
     }
 
     interface Presenter {
@@ -16,15 +16,13 @@ interface Contract {
     }
 
     interface Interactor {
-        fun setUp()
-        fun drawMore()
-        fun stopDrawing()
+        fun drawHumanCard()
+        fun drawComputerCard()
     }
 
     interface InteractorOutput {
-        fun showResult(msg: String)
-        fun showHumanHand(path: String)
-        fun showComputerHand(path: String)
-        fun updateHumanScore(score: Int)
+        fun sendFinalResult(humanScore: Int, computerScore: Int, isComputerBurst: Boolean)
+        fun updateHumanStatus(humanScore: Int, imagePath: String, isHumanBurst: Boolean)
+        fun updateComputerStatus(path: String)
     }
 }

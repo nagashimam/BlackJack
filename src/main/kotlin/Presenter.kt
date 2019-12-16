@@ -6,32 +6,43 @@ class Presenter() : Contract.Presenter, Contract.InteractorOutput {
     private val interactor: Contract.Interactor = Interactor(this)
 
     init {
-        interactor.setUp()
+        with(interactor) {
+            drawHumanCard()
+            drawHumanCard()
+            drawComputerCard()
+            drawComputerCard()
+        }
     }
 
     override fun drawMore() {
         view.disableInput()
-        interactor.drawMore()
+        interactor.drawHumanCard()
     }
 
     override fun stopDrawing() {
         view.disableInput()
-        interactor.stopDrawing()
+        interactor.drawComputerCard()
     }
 
-    override fun showResult(msg: String) {
+    override fun sendFinalResult(humanScore: Int, computerScore: Int, isComputerBurst: Boolean) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showHumanHand(path: String) {
-        view.showComputerHand(path)
+    override fun updateHumanStatus(humanScore: Int, imagePath: String, isHumanBurst: Boolean) {
+        with(view) {
+            updateHumanScore(humanScore)
+            placeHumanHand(imagePath)
+            if (isHumanBurst) {
+                showMessage("あなたの得点:${humanScore}\nあなたの負けです")
+            } else {
+                enableInput()
+            }
+        }
     }
 
-    override fun showComputerHand(path: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+    override fun updateComputerStatus(path: String) {
+        view.placeComputerHand(path)
     }
 
-    override fun updateHumanScore(score: Int) {
-        view.updateHumanScore(score)
-    }
 }

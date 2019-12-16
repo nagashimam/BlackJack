@@ -32,16 +32,16 @@ class View(private val presenter: Contract.Presenter) : Contract.View {
         jQuery(stop).attr(disabled, isDisabled.toString())
     }
 
-    override fun updateHumanScore(score: Int) {
-        jQuery(score).html("<p>$score</p>")
+    override fun updateHumanScore(humanScore: Int) {
+        jQuery(humanScore).html("<p>$humanScore</p>")
     }
 
-    override fun showHumanHand(path: String) {
-        placeCard(human_hand, path)
+    override fun placeHumanHand(imagePath: String) {
+        placeCard(human_hand, imagePath)
     }
 
-    override fun showComputerHand(path: String) {
-        placeCard(cpu_hand, path)
+    override fun placeComputerHand(imagePath: String) {
+        placeCard(cpu_hand, imagePath)
     }
 
     private fun placeCard(selector: String, path: String) {
@@ -49,11 +49,11 @@ class View(private val presenter: Contract.Presenter) : Contract.View {
     }
 
 
-    override fun showAlert(msg: String) {
+    override fun showMessage(msg: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showWinningPercentage() {
+    override fun showWinningPercentage(winningPercentage: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
