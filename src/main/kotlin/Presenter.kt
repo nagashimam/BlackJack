@@ -67,6 +67,7 @@ class Presenter() : Contract.Presenter, Contract.InteractorOutput {
             updateHumanScore(humanScore)
             placeHumanHand(imagePath)
             if (isHumanBurst) {
+                localStorage.setItem(lsKey, JSON.stringify(records.plus(lose)))
                 showMessageWithDelay("あなたの得点:${humanScore}\nあなたの負けです")
             } else {
                 enableInput()
