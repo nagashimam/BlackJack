@@ -1,3 +1,7 @@
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+
 /**
  * 出入力と実際の処理を仲立ちするクラス
  */
@@ -32,7 +36,10 @@ class Presenter() : Contract.Presenter, Contract.InteractorOutput {
             updateHumanScore(humanScore)
             placeHumanHand(imagePath)
             if (isHumanBurst) {
-                showMessage("あなたの得点:${humanScore}\nあなたの負けです")
+                GlobalScope.launch {
+                    delay(1000L)
+                    showMessage("あなたの得点:${humanScore}\nあなたの負けです")
+                }
             } else {
                 enableInput()
             }
