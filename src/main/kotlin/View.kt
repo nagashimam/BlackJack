@@ -1,10 +1,10 @@
 import js.externals.jquery.JQueryEventObject
 import js.externals.jquery.jQuery
-import kotlin.browser.document
 import kotlin.browser.window
 
 private const val draw = "#more"
 private const val stop = "#stop"
+private const val score = "#score"
 private const val cpu_hand = "#cpu-hand"
 private const val human_hand = "#human-hand"
 private const val click = "click"
@@ -36,7 +36,7 @@ class View(private val presenter: Contract.Presenter) : Contract.View {
     }
 
     override fun updateHumanScore(humanScore: Int) {
-        jQuery(humanScore).html("<p>$humanScore</p>")
+        jQuery(score).html("<p>$humanScore</p>")
     }
 
     override fun placeHumanHand(imagePath: String) {
