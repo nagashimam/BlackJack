@@ -75,6 +75,8 @@ class Presenter() : Contract.Presenter, Contract.InteractorOutput {
         }
     }
 
+
+
     override fun updateComputerStatus(path: String) {
         view.placeComputerHand(path)
     }

@@ -614,6 +614,11 @@ var BlackJack = function (_, Kotlin, $module$kotlinx_coroutines_core) {
     $receiver.updateHumanScore_za3lpa$(humanScore);
     $receiver.placeHumanHand_61zpoe$(imagePath);
     if (isHumanBurst) {
+      var tmp$ = localStorage;
+      var tmp$_0 = lsKey;
+      var $receiver_0 = this.records_0;
+      var element = lose;
+      tmp$.setItem(tmp$_0, JSON.stringify($receiver_0.concat([element])));
       this.showMessageWithDelay_0('\u3042\u306A\u305F\u306E\u5F97\u70B9:' + humanScore + '\n' + '\u3042\u306A\u305F\u306E\u8CA0\u3051\u3067\u3059');
     }
      else {
