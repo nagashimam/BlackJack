@@ -5,6 +5,7 @@ import kotlin.browser.window
 private const val draw = "#more"
 private const val stop = "#stop"
 private const val score = "#score"
+private const val winning_percentage = "#winning_percentage"
 private const val cpu_hand = "#cpu-hand"
 private const val human_hand = "#human-hand"
 private const val click = "click"
@@ -61,7 +62,7 @@ class View(private val presenter: Contract.Presenter) : Contract.View {
     }
 
     override fun showWinningPercentage(winningPercentage: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        jQuery(winning_percentage).html("<p>$winningPercentage</p>")
     }
 
     override fun reload() {
