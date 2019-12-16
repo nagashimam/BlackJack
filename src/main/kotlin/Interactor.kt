@@ -10,13 +10,22 @@ class Interactor(private val presenter: Contract.InteractorOutput) : Contract.In
 
     // 手札を引く
     override fun drawMore() {
-//        presenter.showCard(human.draw(deck))
-//        if (human.isOver()) {
-//            presenter.showMessage("現在の得点:\n${human.calculateScore()}\nあなたの負けです。")
-//        } else {
-//            presenter.promptInput()
-//        }
+        if (human.isOver()) return
+
+        drawAndShowHumanHand()
+
+        if (human.isOver()) {
+            presenter.showResult("現在の得点:\n${human.calculateScore()}\nあなたの負けです。")
+        }
     }
+
+    private fun drawAndShowHumanHand() {
+        human.draw(deck).let { result ->
+            presenter.showHumanHand(result)
+            presenter.updateHumanScore(human.calculateScore())
+        }
+    }
+
 
     // プレーヤーが引くのをやめ、コンピューターの分を引く
     override fun stopDrawing() {

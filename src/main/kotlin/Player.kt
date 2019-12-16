@@ -56,7 +56,7 @@ class Human : Player() {
     override fun maxValue() = 21
 
     // カードを引いた結果を返す
-    override fun drawResult(card: Card) = "${whichSide()}のカード:$card"
+    override fun drawResult(card: Card) = card.toString()
 
     // 手札を文字列に変える
     // 文字列を直接足し算をすると、遅くなる。一旦StringBuilderに変換して、それから文字列にする
@@ -76,12 +76,11 @@ class Computer : Player() {
     // カードを引いた結果を返す
     override fun drawResult(card: Card): String {
         // 2枚目に引いたカードは、最初は表示しない
-        val tmp = if (hands.size == 2) {
-            "分かりません"
+        return if (hands.size == 2) {
+            "src/main/resources/img/face_down.png.webp"
         } else {
-            "$card"
+            card.toString()
         }
-        return "${whichSide()}のカード:$tmp"
     }
 
     // 最後に2枚目のカードがどれだったのかを表示する

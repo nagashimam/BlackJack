@@ -24,7 +24,7 @@ class Presenter() : Contract.Presenter, Contract.InteractorOutput {
     }
 
     override fun showHumanHand(path: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.showComputerHand(path)
     }
 
     override fun showComputerHand(path: String) {
@@ -32,6 +32,6 @@ class Presenter() : Contract.Presenter, Contract.InteractorOutput {
     }
 
     override fun updateHumanScore(score: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        view.updateHumanScore(score)
     }
 }
