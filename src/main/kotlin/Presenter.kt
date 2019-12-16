@@ -6,13 +6,7 @@ class Presenter() : Contract.Presenter, Contract.InteractorOutput {
     private val interactor: Contract.Interactor = Interactor(this)
 
     init {
-        with(interactor) {
-            drawHumanCard()
-            drawHumanCard()
-            drawComputerCard()
-            drawComputerCard()
-        }
-        view.enableInput()
+        interactor.setUp()
     }
 
     override fun drawMore() {
@@ -22,8 +16,7 @@ class Presenter() : Contract.Presenter, Contract.InteractorOutput {
 
     override fun stopDrawing() {
         view.disableInput()
-        interactor.flipSecondComputerCard()
-        interactor.drawComputerCard()
+        interactor.startDrawingComputerCard()
     }
 
     override fun flipSecondComputerCard(path: String) {
@@ -45,7 +38,6 @@ class Presenter() : Contract.Presenter, Contract.InteractorOutput {
             }
         }
     }
-
 
     override fun updateComputerStatus(path: String) {
         view.placeComputerHand(path)
