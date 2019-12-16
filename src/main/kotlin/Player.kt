@@ -20,11 +20,31 @@ sealed class Player {
     // カードを引いた結果
     abstract fun drawResult(card: Card): String
 
-    // 手札の合計点を計算
-    fun calculateScore(): Int {
-        // 手札(カードのリスト)をそれぞれの得点のリストに変換してから合計
-        return hands.map { hand -> hand.number.score }.sum()
+    private val isAce: (Card) -> Boolean = { card -> card.number == Number.ONE }
+    private val countAceAsOne: () -> Int = { hands.aces().size }
+    private val countAceAsEleven: () -> Int = {
+        if (hands.aces().isEmpty()) {
+            0
+        } else {
+            hands.aces().size + 10
+        }
     }
+
+    private fun List<Card>.aces() = filter(isAce)
+    private fun List<Card>.nonAceCards() = filterNot(isAce)
+
+    fun calculateScore() =
+        calculateMaxScore().let {
+            if (it > 21) {
+                calculateMinScore()
+            } else {
+                it
+            }
+        }
+
+    private fun calculateScoreOfNonAceCards() = hands.nonAceCards().map { card -> card.number.score }.sum()
+    protected fun calculateMinScore() = calculateScoreOfNonAceCards() + countAceAsOne()
+    protected fun calculateMaxScore() = calculateScoreOfNonAceCards() + countAceAsEleven()
 
     // 人間なのか、コンピューターなのかを文字列で返す
     // コンソールでの表示に使う予定
@@ -82,11 +102,35 @@ class Computer : Player() {
     fun drawUntilScoreExceedsLimit(deck: Deck) = drawUntilScoreExceedsLimit(mutableListOf(), deck)
 
     private tailrec fun drawUntilScoreExceedsLimit(results: MutableList<String>, deck: Deck): List<String> {
-        return if (calculateScore() >= 17) {
+        return if (stopsDrawing()) {
             results
         } else {
             results.add(draw(deck))
             drawUntilScoreExceedsLimit(results, deck)
+        }
+    }
+
+    private fun stopsDrawing(): Boolean {
+        fun countAsOneIsBetter(): Boolean {
+            if (calculateMinScore() > 11) return true
+            return calculateExpectedValue(calculateMinScore()) > calculateExpectedValue(calculateMaxScore())
+        }
+
+        return when {
+            calculateMinScore() >= 17 -> true
+            countAsOneIsBetter() -> false
+            else -> calculateMaxScore() >= 17
+        }
+    }
+
+    private fun calculateExpectedValue(temporaryValue: Int): Double = calculateExpectedValue(temporaryValue.toDouble())
+
+    private tailrec fun calculateExpectedValue(temporaryValue: Double): Double {
+        // TODO: ここ>=じゃなきゃだめ...検証が終わったら帰る
+        return if (temporaryValue > 17.0) {
+            temporaryValue
+        } else {
+            calculateExpectedValue(temporaryValue + 6.5)
         }
     }
 
