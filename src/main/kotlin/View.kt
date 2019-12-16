@@ -64,5 +64,8 @@ class View(private val presenter: Contract.Presenter) : Contract.View {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun reload() {
+        window.location.reload()
+    }
 
 }

@@ -82,7 +82,7 @@ class Computer : Player() {
     fun drawUntilScoreExceedsLimit(deck: Deck) = drawUntilScoreExceedsLimit(mutableListOf(), deck)
 
     private tailrec fun drawUntilScoreExceedsLimit(results: MutableList<String>, deck: Deck): List<String> {
-        return if (calculateScore() > 17) {
+        return if (calculateScore() >= 17) {
             results
         } else {
             results.add(draw(deck))

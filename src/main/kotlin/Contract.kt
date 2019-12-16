@@ -9,6 +9,7 @@ interface Contract {
         fun flipSecondComputerCard(path: String)
         fun showMessage(msg: String)
         fun showWinningPercentage(winningPercentage: String)
+        fun reload()
     }
 
     interface Presenter {

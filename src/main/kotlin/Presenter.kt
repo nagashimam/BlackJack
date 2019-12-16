@@ -5,6 +5,7 @@ import kotlinx.coroutines.launch
 /**
  * 出入力と実際の処理を仲立ちするクラス
  */
+
 class Presenter() : Contract.Presenter, Contract.InteractorOutput {
     private val view: Contract.View = View(this)
     private val interactor: Contract.Interactor = Interactor(this)
@@ -28,7 +29,11 @@ class Presenter() : Contract.Presenter, Contract.InteractorOutput {
     }
 
     override fun sendFinalResult(humanScore: Int, computerScore: Int, isComputerBurst: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val msg = when {
+            isComputerBurst || humanScore > computerScore -> "あなたの勝ちです。"
+            else -> "あなたの負けです。"
+        }
+        showMessageWithDelay("コンピューターの得点:${computerScore}\nあなたの得点:${humanScore}\n$msg")
     }
 
     override fun updateHumanStatus(humanScore: Int, imagePath: String, isHumanBurst: Boolean) {
@@ -36,10 +41,7 @@ class Presenter() : Contract.Presenter, Contract.InteractorOutput {
             updateHumanScore(humanScore)
             placeHumanHand(imagePath)
             if (isHumanBurst) {
-                GlobalScope.launch {
-                    delay(1000L)
-                    showMessage("あなたの得点:${humanScore}\nあなたの負けです")
-                }
+                showMessageWithDelay("あなたの得点:${humanScore}\nあなたの負けです")
             } else {
                 enableInput()
             }
@@ -50,4 +52,11 @@ class Presenter() : Contract.Presenter, Contract.InteractorOutput {
         view.placeComputerHand(path)
     }
 
+    private fun showMessageWithDelay(msg: String) {
+        GlobalScope.launch {
+            delay(1000L)
+            view.showMessage(msg)
+            view.reload()
+        }
+    }
 }
